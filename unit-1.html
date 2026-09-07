@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>單元一：我的創業大計 / Chapter 1: Start Your Own Business</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: "Microsoft JhengHei", "PingFang TC", "Noto Sans TC", sans-serif;
+      line-height: 1.8;
+      color: #2d3436;
+      background: #f0f2f5;
+      overflow-x: hidden;
+    }
+
+    /* ── Header ── */
+    header {
+      background: linear-gradient(135deg, #6c5ce7, #a29bfe, #74b9ff, #a29bfe, #6c5ce7);
+      background-size: 400% 400%;
+      animation: gradientShift 8s ease infinite;
+      color: #fff;
+      padding: 50px 20px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+      animation: headerGlow 6s ease-in-out infinite;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      margin-bottom: 8px;
+      position: relative;
+      animation: slideDown 0.8s ease-out;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    header p {
+      font-size: 1rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease-out 0.3s forwards;
+      position: relative;
+    }
+
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    @keyframes headerGlow {
+      0%, 100% { transform: translate(-30%, -30%) scale(1); opacity: 0.5; }
+      50% { transform: translate(10%, 10%) scale(1.1); opacity: 0.8; }
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 0.9; transform: translateY(0); }
+    }
+
+    /* ── Container ── */
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 30px 20px;
+    }
+
+    /* ── Scroll reveal base ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* stagger children */
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ── Cards (shared) ── */
+    .objectives, .case, .part {
+      background: #fff;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .objectives:hover, .case:hover, .part:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.1);
+    }
+
+    /* ── Objectives ── */
+    .objectives { border-left: 5px solid #6c5ce7; }
+    .objectives h2 { color: #6c5ce7; font-size: 1.2rem; margin-bottom: 10px; }
+    .objectives ol { padding-left: 20px; }
+    .objectives li {
+      margin-bottom: 6px;
+      transition: transform 0.2s ease, color 0.2s ease;
+    }
+    .objectives li:hover { transform: translateX(6px); color: #6c5ce7; }
+
+    /* ── Case ── */
+    .case h2 { color: #e17055; font-size: 1.3rem; margin-bottom: 12px; }
+    .case h3 { color: #d63031; font-size: 1.1rem; margin: 14px 0 8px; }
+
+    .scenario {
+      background: #ffeaa7;
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin-bottom: 14px;
+      font-size: 0.95rem;
+      border-left: 4px solid #fdcb6e;
+      transition: background 0.3s ease;
+    }
+    .scenario:hover { background: #fff3bf; }
+
+    .problems {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .problem-card {
+      perspective: 800px;
+      height: 180px;
+      cursor: pointer;
+    }
+    .problem-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.6s ease;
+      transform-style: preserve-3d;
+    }
+    .problem-card.flipped .problem-card-inner {
+      transform: rotateY(180deg);
+    }
+    .problem-card-front, .problem-card-back {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      backface-visibility: hidden;
+      border-radius: 10px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    }
+    .problem-card-front {
+      background: linear-gradient(135deg, #dfe6e9, #b2bec3);
+      color: #2d3436;
+    }
+    .problem-card-front strong {
+      font-size: 1.05rem;
+      color: #d63031;
+      margin-bottom: 6px;
+    }
+    .problem-card-front .flip-hint {
+      margin-top: 10px;
+      font-size: 0.78rem;
+      color: #636e72;
+      opacity: 0.7;
+    }
+    .problem-card-back {
+      background: linear-gradient(135deg, #ffeaa7, #fdcb6e);
+      color: #2d3436;
+      transform: rotateY(180deg);
+      font-size: 0.88rem;
+      line-height: 1.6;
+    }
+    .problem-card-back .answer-label {
+      font-weight: bold;
+      color: #d63031;
+      font-size: 0.95rem;
+      margin-bottom: 6px;
+    }
+    .problem-card-back .en {
+      color: #636e72;
+      font-size: 0.82rem;
+    }
+
+    /* ── Parts ── */
+    .part h2 {
+      font-size: 1.3rem;
+      margin-bottom: 14px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #dfe6e9;
+    }
+    .part-1 h2 { color: #0984e3; }
+    .part-2 h2 { color: #00b894; }
+
+    /* ── Table ── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      margin-top: 10px;
+    }
+
+    th, td {
+      border: 1px solid #b2bec3;
+      padding: 10px 12px;
+      text-align: left;
+      vertical-align: top;
+      transition: background 0.25s ease, transform 0.2s ease;
+    }
+
+    th {
+      background: #dfe6e9;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    td:first-child {
+      font-weight: bold;
+      background: #f8f9fa;
+      width: 18%;
+    }
+
+    tr {
+      transition: transform 0.2s ease;
+    }
+    tr:hover { transform: scale(1.01); }
+    tr:hover td { background: #e8f8f5; }
+    tr:hover td:first-child { background: #d5f5e3; }
+
+    /* ── Steps ── */
+    .step {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 24px;
+      align-items: flex-start;
+      padding: 14px;
+      border-radius: 10px;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+    .step:hover {
+      background: #f0fff4;
+      box-shadow: 0 4px 16px rgba(0,184,148,0.1);
+    }
+
+    .step-num {
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #00b894, #55efc4);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.1rem;
+      box-shadow: 0 3px 10px rgba(0,184,148,0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: pulse 2.5s ease-in-out infinite;
+    }
+    .step:hover .step-num {
+      transform: scale(1.15) rotate(10deg);
+      box-shadow: 0 5px 18px rgba(0,184,148,0.4);
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 3px 10px rgba(0,184,148,0.3); }
+      50% { box-shadow: 0 3px 20px rgba(0,184,148,0.5); }
+    }
+
+    .step-content h3 {
+      color: #00b894;
+      font-size: 1.05rem;
+      margin-bottom: 4px;
+    }
+
+    .step-content ul { padding-left: 20px; font-size: 0.95rem; }
+    .step-content ul li {
+      margin-bottom: 4px;
+      transition: transform 0.2s ease;
+    }
+    .step-content ul li:hover { transform: translateX(4px); }
+
+    /* ── Table header images ── */
+    .th-img {
+      width: 100%;
+      max-width: 140px;
+      max-height: 130px;
+      object-fit: contain;
+      border-radius: 8px;
+      margin-bottom: 6px;
+      transition: transform 0.3s ease;
+    }
+    th:hover .th-img {
+      transform: scale(1.08);
+    }
+
+    @media (max-width: 600px) {
+      .th-img { max-width: 80px; max-height: 80px; }
+    }
+
+    .en { color: #636e72; font-size: 0.88rem; }
+
+    /* ── Video section ── */
+    .video-section {
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 2px dashed #dfe6e9;
+    }
+    .video-section h3 {
+      color: #d63031;
+      font-size: 1.1rem;
+      margin-bottom: 14px;
+    }
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 */
+      height: 0;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      transition: box-shadow 0.3s ease;
+    }
+    .video-wrapper:hover {
+      box-shadow: 0 8px 28px rgba(0,0,0,0.18);
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border-radius: 10px;
+    }
+
+    /* ── Quiz section ── */
+    .quiz-section {
+      background: #fff;
+      border-radius: 12px;
+      padding: 28px 24px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .quiz-section:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.1);
+    }
+    .quiz-section > h2 {
+      color: #e84393;
+      font-size: 1.3rem;
+      margin-bottom: 6px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #dfe6e9;
+    }
+    .quiz-section > p {
+      color: #636e72;
+      font-size: 0.92rem;
+      margin-bottom: 20px;
+    }
+
+    .quiz-question {
+      background: #f8f9fa;
+      border-radius: 10px;
+      padding: 18px 20px;
+      margin-bottom: 16px;
+      border-left: 4px solid #dfe6e9;
+      transition: border-color 0.3s ease, background 0.3s ease;
+    }
+    .quiz-question.answered-correct {
+      border-left-color: #00b894;
+      background: #f0fff4;
+    }
+    .quiz-question.answered-wrong {
+      border-left-color: #d63031;
+      background: #fff5f5;
+    }
+    .quiz-question h4 {
+      font-size: 1rem;
+      margin-bottom: 12px;
+      color: #2d3436;
+    }
+    .quiz-question h4 .q-num {
+      display: inline-block;
+      background: #e84393;
+      color: #fff;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 26px;
+      font-size: 0.85rem;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+
+    .quiz-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .quiz-option {
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 2px solid #dfe6e9;
+      background: #fff;
+      cursor: pointer;
+      font-size: 0.92rem;
+      transition: all 0.25s ease;
+      user-select: none;
+    }
+    .quiz-option:hover:not(.disabled) {
+      border-color: #e84393;
+      background: #ffeef8;
+      transform: translateX(3px);
+    }
+    .quiz-option.selected-correct {
+      border-color: #00b894;
+      background: #d4edda;
+      color: #155724;
+      font-weight: bold;
+    }
+    .quiz-option.selected-wrong {
+      border-color: #d63031;
+      background: #f8d7da;
+      color: #721c24;
+      text-decoration: line-through;
+    }
+    .quiz-option.reveal-correct {
+      border-color: #00b894;
+      background: #d4edda;
+      font-weight: bold;
+    }
+    .quiz-option.disabled {
+      cursor: default;
+      opacity: 0.7;
+    }
+
+    .quiz-feedback {
+      margin-top: 10px;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      display: none;
+    }
+    .quiz-feedback.show { display: block; }
+    .quiz-feedback.correct {
+      background: #d4edda;
+      color: #155724;
+    }
+    .quiz-feedback.wrong {
+      background: #f8d7da;
+      color: #721c24;
+    }
+
+    .quiz-result {
+      text-align: center;
+      margin-top: 24px;
+      padding: 20px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #ffeef8, #e8f8f5);
+      display: none;
+    }
+    .quiz-result.show { display: block; animation: fadeUp 0.5s ease; }
+    .quiz-result .score {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #e84393;
+    }
+    .quiz-result .score-msg {
+      margin-top: 6px;
+      font-size: 1rem;
+      color: #2d3436;
+    }
+
+    .quiz-retry {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 10px 28px;
+      border-radius: 24px;
+      border: none;
+      background: linear-gradient(135deg, #e84393, #fd79a8);
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 4px 12px rgba(232,67,147,0.3);
+    }
+    .quiz-retry:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(232,67,147,0.4);
+    }
+
+    @media (max-width: 600px) {
+      .quiz-options { grid-template-columns: 1fr; }
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #b2bec3;
+      font-size: 0.85rem;
+      transition: color 0.3s ease;
+    }
+    footer:hover { color: #6c5ce7; }
+
+    /* ── Back to Top Button ── */
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+      color: #fff;
+      border: none;
+      font-size: 1.4rem;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px);
+      transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+      box-shadow: 0 4px 14px rgba(108,92,231,0.4);
+      z-index: 999;
+    }
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    .back-to-top:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(108,92,231,0.5);
+    }
+
+    /* ── Floating particles ── */
+    .particles {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .particle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      opacity: 0.15;
+      animation: floatUp linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.15; }
+      90% { opacity: 0.15; }
+      100% { transform: translateY(-10vh) rotate(720deg); opacity: 0; }
+    }
+
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.3rem; }
+      table { font-size: 0.8rem; }
+      th, td { padding: 6px 8px; }
+      .back-to-top { bottom: 16px; right: 16px; width: 40px; height: 40px; font-size: 1.2rem; }
+      .problem-card { height: 200px; }
+      .problem-card-front, .problem-card-back { font-size: 0.82rem; padding: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Floating particles -->
+<div class="particles" id="particles"></div>
+
+<header>
+  <h1>中二級 初中商業：單元一 我的創業大計</h1>
+  <p>F.2 Junior Commerce: Chapter 1 — Start Your Own Business</p>
+</header>
+
+<div class="container">
+
+  <!-- Learning Objectives -->
+  <div class="objectives reveal">
+    <h2>💡 學習目標 / Learning Objectives</h2>
+    <ol>
+      <li>重溫三種主要的企業擁有權類型<br><span class="en">Revision on 3 different forms of business ownership</span></li>
+      <li>認識開設一項業務的規劃過程六個步驟<br><span class="en">Understand the 6 steps of the planning process of setting up a business</span></li>
+    </ol>
+  </div>
+
+  <!-- Case Background -->
+  <div class="case reveal">
+    <h2>🌟 故事背景與創業契機</h2>
+    <h3>📚 孝言的二手書計劃 / Jason's Used Textbook Plan</h3>
+    <div class="scenario">
+      <strong>情境 Scenario：</strong><br>
+      孝言（Jason）是一名中六學生。每逢暑假，他發現自己以極低的便宜價格（原價的一成或每公斤 $5）將保養良好的舊課本賣給二手書店。然而，二手書店再轉售這些舊書時，售價卻高達原價的六成至八成！這觸發了他自己經營二手課本生意的點子。
+      <br><span class="en">Jason is a Form 6 student. Every summer, he sells his well-conditioned used textbooks to old book stores at a very low price (10% of the original price or $5/kg). However, the resale value of these books at the stores is high (60% to 80% of original price). This triggers his idea to start a used textbook business.</span>
+    </div>
+
+    <h3>⚠️ 面臨的問題 / Problems to Consider</h3>
+    <div class="problems">
+      <div class="problem-card reveal reveal-delay-1" onclick="this.classList.toggle('flipped')">
+        <div class="problem-card-inner">
+          <div class="problem-card-front">
+            <strong>1. 資本來源</strong><br>
+            如何為業務籌集資金？<br>
+            <span class="en">How to raise money for the business?</span>
+            <div class="flip-hint">👆 點擊翻轉查看答案</div>
+          </div>
+          <div class="problem-card-back">
+            <div class="answer-label">答案 Answer</div>
+            個人儲蓄 / 父母帳戶<br>
+            或向親戚及朋友借貸<br>
+            <span class="en">Savings (personal / parent's account)<br>or borrow from relatives and friends</span>
+          </div>
+        </div>
+      </div>
+      <div class="problem-card reveal reveal-delay-2" onclick="this.classList.toggle('flipped')">
+        <div class="problem-card-inner">
+          <div class="problem-card-front">
+            <strong>2. 交易方式</strong><br>
+            如何買賣課本？<br>
+            <span class="en">How to transact the trading?</span>
+            <div class="flip-hint">👆 點擊翻轉查看答案</div>
+          </div>
+          <div class="problem-card-back">
+            <div class="answer-label">答案 Answer</div>
+            以（電子）貨幣交易，<br>如現金、銀行戶口轉賬、轉數快、<br>信用卡、PayMe、支付寶等<br>
+            <span class="en">Cash, bank transfer, FPS,<br>credit card, PayMe, Alipay etc.</span>
+          </div>
+        </div>
+      </div>
+      <div class="problem-card reveal reveal-delay-3" onclick="this.classList.toggle('flipped')">
+        <div class="problem-card-inner">
+          <div class="problem-card-front">
+            <strong>3. 貨品來源</strong><br>
+            如何購入學生的舊課本？<br>
+            <span class="en">How to acquire students' used textbooks?</span>
+            <div class="flip-hint">👆 點擊翻轉查看答案</div>
+          </div>
+          <div class="problem-card-back">
+            <div class="answer-label">答案 Answer</div>
+            透過人際網絡和社交媒體，<br>如同學、校友、附近或任何中學生<br>
+            <span class="en">Through Social Network and social media,<br>e.g. schoolmate, any students</span>
+          </div>
+        </div>
+      </div>
+      <div class="problem-card reveal reveal-delay-4" onclick="this.classList.toggle('flipped')">
+        <div class="problem-card-inner">
+          <div class="problem-card-front">
+            <strong>4. 交易記錄</strong><br>
+            如何記錄交易？<br>
+            <span class="en">How to record transactions?</span>
+            <div class="flip-hint">👆 點擊翻轉查看答案</div>
+          </div>
+          <div class="problem-card-back">
+            <div class="answer-label">答案 Answer</div>
+            會計<br>
+            <span class="en">Accounting</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Part 1 -->
+  <div class="part part-1 reveal">
+    <h2>🏢 第一部分：三種主要的企業擁有權類型</h2>
+    <p>在開始生意前，必須先決定企業的擁有權形式。<span class="en">Before starting, one must decide the form of ownership.</span></p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>特色</th>
+          <th>
+            <img src="獨資.png.jpg" alt="獨資經營" class="th-img">
+            <br>獨資經營<br><span class="en">Sole proprietorship</span>
+          </th>
+          <th>
+            <img src="合夥.png.jpg" alt="普通合夥" class="th-img">
+            <br>普通合夥<br><span class="en">General partnership</span>
+          </th>
+          <th>
+            <img src="有限公司.png.png" alt="公眾有限公司" class="th-img">
+            <br>公眾有限公司<br><span class="en">Limited company</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>擁有人數目<br><span class="en">No. of ownership</span></td><td>只有一名擁有人<br><span class="en">One owner only</span></td><td>不少於兩名擁有人（合夥人）<br><span class="en">At least 2 owners (partners)</span></td><td>擁有人擁有公司的股份（股東）<br><span class="en">Owners own shares of the company (shareholders)</span></td></tr>
+        <tr><td>利潤分配<br><span class="en">Profit sharing</span></td><td>獨享所有利潤<br><span class="en">Entitle all profits</span></td><td>由合夥人分攤利潤<br><span class="en">Partners share the profits</span></td><td>股東收取股息<br><span class="en">Shareholders receive dividends</span></td></tr>
+        <tr><td>法人身份<br><span class="en">Separate legal entity</span></td><td>沒有獨立法人身份<br><span class="en">No separate legal entity</span></td><td>沒有獨立法人身份<br><span class="en">No separate legal entity</span></td><td>具有獨立法人身份<br><span class="en">Separate legal entity</span></td></tr>
+        <tr><td>共同債務責任<br><span class="en">Liability</span></td><td>須對企業債務負上全責<br><span class="en">Fully liable to the firm's debt</span></td><td>須對企業債務負上共同責任<br><span class="en">Jointly liable to the firm's debt</span></td><td>債務責任只限於所持股份的價值<br><span class="en">Liability limited to the value of shares</span></td></tr>
+        <tr><td>經典例子<br><span class="en">Typical Examples</span></td><td>威記肉枱<br><span class="en">Wai Kee Meat Stall</span></td><td>葉謝鄧律師行<br><span class="en">Yip, Tse &amp; Tang Solicitors</span></td><td>香港中華煤氣有限公司<br><span class="en">The Hong Kong &amp; China Gas Company Limited</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Part 2 -->
+  <div class="part part-2 reveal">
+    <h2>📝 第二部分：開設業務的規劃過程六個步驟</h2>
+    <p>開設一項業務需要有一份<strong>業務計劃 (Business Plan)</strong>，它是創業的導向圖 (roadmap)。<span class="en">To set up a business, you need a Business Plan, which serves as a roadmap.</span></p>
+
+    <div class="step reveal reveal-delay-1">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h3>設定目標 / Setting Objectives</h3>
+        <ul>
+          <li>賺取最多利潤 <span class="en">To maximize the profits earned</span></li>
+          <li>成為市場最大 <span class="en">To be the largest share of the market</span></li>
+          <li>服務最多的顧客 <span class="en">To maximize the number of customers served</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="step reveal reveal-delay-2">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h3>了解市場 / Understanding the Market</h3>
+        <ul>
+          <li>附近有沒有售賣二手課本的書店？（有 / 無）<br><span class="en">Are there used bookstores nearby?</span></li>
+          <li>這些書店是大型還是小型？<br><span class="en">Are these stores big or small?</span></li>
+          <li>這些書店的書售價便宜還是昂貴？<br><span class="en">Are their books cheap or expensive?</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="step reveal reveal-delay-3">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h3>決定銷售策略 / Deciding Selling Strategy</h3>
+        <ul>
+          <li><strong>目標貨品：</strong>銷售初中、高中，還是全部的二手課本？<br><span class="en">Selling junior, senior, or all forms of used textbooks?</span></li>
+          <li><strong>主打科目：</strong>以售賣哪些科目的二手課本為主？<br><span class="en">Which subjects to focus on selling?</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="step reveal reveal-delay-4">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <h3>組織業務架構 / Organizing the Business</h3>
+        <ul>
+          <li><strong>企業形式：</strong>以獨資經營、合夥，還是有限公司形式經營？<br><span class="en">Operate as a sole proprietorship, partnership, or limited company?</span></li>
+          <li><strong>經營渠道：</strong>採用實體店形式，還是透過網上平台形式經營？<br><span class="en">A physical brick-and-mortar presence, or an e-Shop through the internet?</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="step reveal reveal-delay-1">
+      <div class="step-num">5</div>
+      <div class="step-content">
+        <h3>製作財務預算 / Making Financial Budgets</h3>
+        <ul>
+          <li><strong>銷量估算：</strong>預期銷售量及滯銷書量。<br><span class="en">Expected sales and unsold books.</span></li>
+          <li><strong>成本預估：</strong>預期每本二手書的成本。<br><span class="en">Expected cost per used textbook.</span></li>
+          <li><strong>定價原則：</strong>預期每本二手書的售價。<br><span class="en">Expected price per used textbook.</span></li>
+          <li><strong>利潤預測：</strong>預期可賺取多少利潤。<br><span class="en">Expected profit to be earned.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="step reveal reveal-delay-2">
+      <div class="step-num">6</div>
+      <div class="step-content">
+        <h3>採取行動 / Taking Action</h3>
+        <ul>
+          <li><strong>開始經營：</strong>當一切準備就緒，便可開始經營業務。<br><span class="en">When everything is ready, start the business.</span></li>
+          <li><strong>推廣宣傳：</strong>在經營過程中進行宣傳，以增加店舖的知名度，從而增加利潤。<br><span class="en">Conduct promotion during operation to increase publicity and profits.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="video-section reveal">
+      <h3>🎬 學習影片 / Learning Video</h3>
+      <div class="video-wrapper">
+        <iframe
+          src="https://www.youtube.com/embed/PfJIVG2cg-g"
+          title="學習影片"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quiz Section -->
+  <div class="quiz-section reveal">
+    <h2>📝 小測驗 / Quiz</h2>
+    <p>根據第一章內容，回答以下問題。選擇正確答案後不可更改。</p>
+
+    <div class="quiz-question" id="q1">
+      <h4><span class="q-num">1</span>獨資經營有多少名擁有人？<br><span class="en">How many owners does a sole proprietorship have?</span></h4>
+      <div class="quiz-options">
+        <div class="quiz-option" data-q="1" data-val="a" data-correct="b">A. 不少於兩名<br><span class="en">At least 2</span></div>
+        <div class="quiz-option" data-q="1" data-val="b" data-correct="b">B. 只有一名<br><span class="en">One only</span></div>
+        <div class="quiz-option" data-q="1" data-val="c" data-correct="b">C. 不限数目<br><span class="en">Unlimited</span></div>
+        <div class="quiz-option" data-q="1" data-val="d" data-correct="b">D. 三名或以上<br><span class="en">3 or more</span></div>
+      </div>
+      <div class="quiz-feedback" id="fb1"></div>
+    </div>
+
+    <div class="quiz-question" id="q2">
+      <h4><span class="q-num">2</span>哪種企業形式具有獨立法人身份？<br><span class="en">Which form of business has a separate legal entity?</span></h4>
+      <div class="quiz-options">
+        <div class="quiz-option" data-q="2" data-val="a" data-correct="c">A. 獨資經營<br><span class="en">Sole proprietorship</span></div>
+        <div class="quiz-option" data-q="2" data-val="b" data-correct="c">B. 普通合夥<br><span class="en">General partnership</span></div>
+        <div class="quiz-option" data-q="2" data-val="c" data-correct="c">C. 公眾有限公司<br><span class="en">Limited company</span></div>
+        <div class="quiz-option" data-q="2" data-val="d" data-correct="c">D. 以上皆是<br><span class="en">All of the above</span></div>
+      </div>
+      <div class="quiz-feedback" id="fb2"></div>
+    </div>
+
+    <div class="quiz-question" id="q3">
+      <h4><span class="q-num">3</span>開設業務規劃過程的第一個步驟是什麼？<br><span class="en">What is the first step in the planning process of setting up a business?</span></h4>
+      <div class="quiz-options">
+        <div class="quiz-option" data-q="3" data-val="a" data-correct="a">A. 設定目標<br><span class="en">Setting objectives</span></div>
+        <div class="quiz-option" data-q="3" data-val="b" data-correct="a">B. 了解市場<br><span class="en">Understanding the market</span></div>
+        <div class="quiz-option" data-q="3" data-val="c" data-correct="a">C. 製作財務預算<br><span class="en">Making financial budgets</span></div>
+        <div class="quiz-option" data-q="3" data-val="d" data-correct="a">D. 採取行動<br><span class="en">Taking action</span></div>
+      </div>
+      <div class="quiz-feedback" id="fb3"></div>
+    </div>
+
+    <div class="quiz-question" id="q4">
+      <h4><span class="q-num">4</span>合夥人對企業債務承擔什麼責任？<br><span class="en">What liability do partners have for the firm's debt?</span></h4>
+      <div class="quiz-options">
+        <div class="quiz-option" data-q="4" data-val="a" data-correct="b">A. 全責<br><span class="en">Fully liable</span></div>
+        <div class="quiz-option" data-q="4" data-val="b" data-correct="b">B. 共同責任<br><span class="en">Jointly liable</span></div>
+        <div class="quiz-option" data-q="4" data-val="c" data-correct="b">C. 無需負責<br><span class="en">No liability</span></div>
+        <div class="quiz-option" data-q="4" data-val="d" data-correct="b">D. 只限於股份價值<br><span class="en">Limited to shares</span></div>
+      </div>
+      <div class="quiz-feedback" id="fb4"></div>
+    </div>
+
+    <div class="quiz-question" id="q5">
+      <h4><span class="q-num">5</span>業務計劃 (Business Plan) 的作用是什麼？<br><span class="en">What is the purpose of a Business Plan?</span></h4>
+      <div class="quiz-options">
+        <div class="quiz-option" data-q="5" data-val="a" data-correct="a">A. 創業的導向圖 (roadmap)<br><span class="en">A roadmap for starting a business</span></div>
+        <div class="quiz-option" data-q="5" data-val="b" data-correct="a">B. 公司的財務報表<br><span class="en">Financial statements of the company</span></div>
+        <div class="quiz-option" data-q="5" data-val="c" data-correct="a">C. 員工合約<br><span class="en">Employee contracts</span></div>
+        <div class="quiz-option" data-q="5" data-val="d" data-correct="a">D. 稅務申報表<br><span class="en">Tax returns</span></div>
+      </div>
+      <div class="quiz-feedback" id="fb5"></div>
+    </div>
+
+    <div class="quiz-question" id="q6">
+      <h4><span class="q-num">6</span>步驟二「了解市場」主要需要分析什麼？<br><span class="en">What does Step 2 "Understanding the Market" mainly require analyzing?</span></h4>
+      <div class="quiz-options">
+        <div class="quiz-option" data-q="6" data-val="a" data-correct="c">A. 公司員工<br><span class="en">Company employees</span></div>
+        <div class="quiz-option" data-q="6" data-val="b" data-correct="c">B. 供應商<br><span class="en">Suppliers</span></div>
+        <div class="quiz-option" data-q="6" data-val="c" data-correct="c">C. 競爭對手<br><span class="en">Competitors</span></div>
+        <div class="quiz-option" data-q="6" data-val="d" data-correct="c">D. 政府政策<br><span class="en">Government policies</span></div>
+      </div>
+      <div class="quiz-feedback" id="fb6"></div>
+    </div>
+
+    <div class="quiz-question" id="q7">
+      <h4><span class="q-num">7</span>有限公司股東的債務責任限於什麼？<br><span class="en">What is the liability of shareholders in a limited company?</span></h4>
+      <div class="quiz-options">
+        <div class="quiz-option" data-q="7" data-val="a" data-correct="d">A. 公司的全部債務<br><span class="en">All company debts</span></div>
+        <div class="quiz-option" data-q="7" data-val="b" data-correct="d">B. 其個人全部資產<br><span class="en">All personal assets</span></div>
+        <div class="quiz-option" data-q="7" data-val="c" data-correct="d">C. 公司的一半債務<br><span class="en">Half of company debts</span></div>
+        <div class="quiz-option" data-q="7" data-val="d" data-correct="d">D. 所持股份的價值<br><span class="en">Value of shares held</span></div>
+      </div>
+      <div class="quiz-feedback" id="fb7"></div>
+    </div>
+
+    <div class="quiz-result" id="quizResult">
+      <div class="score" id="scoreText"></div>
+      <div class="score-msg" id="scoreMsg"></div>
+      <button class="quiz-retry" onclick="retryQuiz()">再試一次 / Try Again</button>
+    </div>
+  </div>
+
+</div>
+
+<footer>© F.2 Junior Commerce — 單元一 我的創業大計</footer>
+
+<button class="back-to-top" id="backToTop" title="返回頂部">↑</button>
+
+<script>
+  // ── Floating particles ──
+  (function createParticles() {
+    const container = document.getElementById('particles');
+    const colors = ['#6c5ce7','#a29bfe','#74b9ff','#55efc4','#ffeaa7','#fab1a0'];
+    for (let i = 0; i < 30; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.style.left = Math.random() * 100 + '%';
+      p.style.width = p.style.height = (Math.random() * 5 + 3) + 'px';
+      p.style.background = colors[Math.floor(Math.random() * colors.length)];
+      p.style.animationDuration = (Math.random() * 10 + 8) + 's';
+      p.style.animationDelay = (Math.random() * 10) + 's';
+      container.appendChild(p);
+    }
+  })();
+
+  // ── Scroll reveal ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // ── Back to top ──
+  const btn = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => {
+    btn.classList.toggle('show', window.scrollY > 400);
+  });
+  btn.addEventListener('click', () => window.scrollTo({ top: 0 }));
+
+  // ── Quiz ──
+  const answers = { 1:'b', 2:'c', 3:'a', 4:'b', 5:'a', 6:'c', 7:'d' };
+  const explanations = {
+    1: '只有一名擁有人',
+    2: '公眾有限公司具有獨立法人身份',
+    3: '設定目標是第一步',
+    4: '合夥人須負共同責任',
+    5: '業務計劃是創業的導向圖',
+    6: '了解市場需要分析競爭對手',
+    7: '股東責任只限於所持股份的價值'
+  };
+  let answered = {};
+  let score = 0;
+
+  document.querySelectorAll('.quiz-option').forEach(opt => {
+    opt.addEventListener('click', function() {
+      const q = this.dataset.q;
+      if (answered[q]) return;
+
+      answered[q] = true;
+      const correct = this.dataset.correct;
+      const isCorrect = this.dataset.val === correct;
+      const qEl = document.getElementById('q' + q);
+      const fb = document.getElementById('fb' + q);
+
+      // disable all options in this question
+      qEl.querySelectorAll('.quiz-option').forEach(o => {
+        o.classList.add('disabled');
+        if (o.dataset.val === correct) o.classList.add('reveal-correct');
+      });
+
+      if (isCorrect) {
+        this.classList.add('selected-correct');
+        qEl.classList.add('answered-correct');
+        fb.className = 'quiz-feedback show correct';
+        fb.textContent = '✓ 正確！' + explanations[q];
+        score++;
+      } else {
+        this.classList.add('selected-wrong');
+        qEl.classList.add('answered-wrong');
+        fb.className = 'quiz-feedback show wrong';
+        fb.textContent = '✗ 不正確。正確答案：' + explanations[q];
+      }
+
+      // check if all answered
+      if (Object.keys(answered).length === 7) {
+        const result = document.getElementById('quizResult');
+        const scoreText = document.getElementById('scoreText');
+        const scoreMsg = document.getElementById('scoreMsg');
+        scoreText.textContent = score + ' / 7';
+        if (score === 7) scoreMsg.textContent = '🎉 滿分！你完全掌握了第一章內容！Perfect!';
+        else if (score >= 5) scoreMsg.textContent = '👍 不錯！再溫習一下就能拿滿分！Good job!';
+        else scoreMsg.textContent = '📖 建議再重溫課文內容，加油！Review the chapter and try again!';
+        result.classList.add('show');
+        setTimeout(() => result.scrollIntoView({ behavior: 'smooth', block: 'center' }), 300);
+      }
+    });
+  });
+
+  function retryQuiz() {
+    answered = {};
+    score = 0;
+    document.querySelectorAll('.quiz-option').forEach(o => {
+      o.classList.remove('disabled', 'selected-correct', 'selected-wrong', 'reveal-correct');
+    });
+    document.querySelectorAll('.quiz-question').forEach(q => {
+      q.classList.remove('answered-correct', 'answered-wrong');
+    });
+    document.querySelectorAll('.quiz-feedback').forEach(f => {
+      f.className = 'quiz-feedback';
+    });
+    document.getElementById('quizResult').classList.remove('show');
+    document.querySelector('.quiz-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+</script>
+
+</body>
+</html>
